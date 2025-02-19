@@ -120,14 +120,13 @@ async def analyze_issue(owner: str, repository: str, issue_number: int, branch: 
     }
     return response
 
-def clone_repository(owner: str, repository: str, branch: str = "main") -> str:
+def clone_repository(owner: str, repository: str) -> str:
     """
     Clones a Git-Repository based on Owner, repository-name.
     
     Args:
         owner (str): GitHub-Owner (e.g. Username or organization).
-        repo (str): name of the GitHub-Repository.
-        branch (str): the branch, to be cloned (default: "main").        
+        repo (str): name of the GitHub-Repository.   
     Returns:
         str: Path of cloned repository or error
     """
@@ -148,7 +147,7 @@ def clone_repository(owner: str, repository: str, branch: str = "main") -> str:
 
         # Git-Klon-Befehl ausführen
         subprocess.run(
-            ["git", "clone", "--quiet", "--branch", branch, repo_url, str(repo_path)],
+            ["git", "clone", "--quiet", repo_url, str(repo_path)],
             check=True,
         )
         return f"Repository erfolgreich geklont: {repo_path}"
